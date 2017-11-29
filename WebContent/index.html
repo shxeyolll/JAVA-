@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Content-Language" content="zh-CN" />
+<meta content="all" name="robots" />
+<title>表单验证类 Validator v4.0 alpha preview</title>
+<link href="css/validator.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/mootools.js" charset="gb2312"></script>
+<script type="text/javascript" src="js/full-validator.js" charset="gb2312"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+Validator.registerElement("ZipCodeElement", {
+	process : function(){
+		return /^[1-9]\d{5}$/.test(this.value);
+	}
+});
+Validator.setup({
+	form : 'demo',
+	configs : 'xml,attribute,tag',
+	warns : 'summary,follow, color,class, alert,tips',
+	color : {warn :'black', pass:'white'},
+	summary : { id : 'summary'},
+	xml : {url : 'rules/validation.xml?id=1'},
+	events : {
+		'Password' : {
+			onLevelChange : function(n){
+				$('passwordInfo').setStyle('background-position',  'left ' + [0, 22, 50, 75, 100][n] + '%');
+			}
+		},
+		'Email' : {
+			onRemote : function(element){
+				element.params.type = 'gmail';
+			}
+		}
+	}
+}).add({"for":"Card", "rule":"IdCard", "empty":"号码不允许为空", "warn":"号码不正确", "tips":"请输入15位或18位的身份证", "pass":"验证正确"}).add({"for":"Name", "rule":"username", "empty":"不允许为空", "warn":"验证错误", "tips":"昵称是由英文与下划线组成的4~20位的字符", "pass":"验证正确",  "require" : "false"}).add({"for":"Password", "rule":"password",  "level":"2", "empty":"密码不允许为空", "warn":"密码安全度太低", "tips":"请输入6~16位数字、字母及特殊字符的混合字符", "pass":"验证正确"});
+/*]]>*/
+</script>
+</head>
+<body>
+	<div id="summary" class="summary"></div>
+	<form id="demo" method="get" action="" onsubmit="return false">
+		<fieldset>
+			<legend>
+				表单验证 Validator v4.0 alpha
+			</legend>
+			<dl>
+				<dt>
+					<label for="Card">身份证：</label>
+				</dt>
+				<dd>
+					<input id="Card" type="text" name="Card" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Name">昵称：</label>
+				</dt>
+				<dd>
+					<input id="Name" name="Name" type="text" value="wfsr" />
+				</dd>
+			</dl>
+			<dl style="height:58px">
+				<dt>
+					<label for="Password">密码：</label>
+				</dt>
+				<dd>
+					<input id="Password" name="Password" type="text" value="abcdEfG123" />
+					<div id="passwordInfo"></div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Password1">确认：</label>
+				</dt>
+				<dd>
+					<input id="Password1" name="Password1" type="text" value="abcdEfG123" /><ui:v for="Password1" rule="repeat" to="Password" empty="请确认您的密码" warn="两次输入的密码不一致" tips="请重复输入一次您的密码" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Password2">确认：</label>
+				</dt>
+				<dd>
+					<input id="Password2" name="Password2" type="text" value="abcdEfG123" /><ui:v for="Password2" rule="compare" toElement="Password" as="String" empty="请确认您的密码" warn="两次输入的密码不一致" tips="请重复输入一次您的密码" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Email">信箱：</label>
+				</dt>
+				<dd>
+					<input id="Email" name="Email" type="text" value="abc@msn.com" /><ui:v for="Email" rule="email" empty="信箱不允许为空" warn="格式验证错误" pass="验证正确" action="/demo/test/404.aspx" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="IPAddress">IP：</label>
+				</dt>
+				<dd>
+					<input id="IPAddress" name="IPAddress" type="text" value="192.168.128.254" /><ui:v for="IPAddress" rule="ip" empty="请填写您的当前IP地址" warn="您输入的IP不存在或格式不正确" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Birthday">生日：</label>
+				</dt>
+				<dd>
+					<input id="Birthday" name="Birthday" type="text" value="2005-12-01" /><ui:v for="Birthday" rule="date" empty="请填写您的出生年月日" warn="您输入的日期不存在或格式不正确" tips="请输入一次您的出生年月日(格式：1980-01-01)" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Year">年龄：</label>
+				</dt>
+				<dd>
+					<input id="Year" name="Year" type="text" value="21" /><ui:v for="Year" rule="range" min="18" max="21" empty="请填写您的年龄" warn="您的年龄不在18－21的范围内" tips="请输入您的年龄(在18－21之内)" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="QQ">QQ：</label>
+				</dt>
+				<dd>
+					<input id="QQ" name="QQ" type="text" value="88888" /><ui:v for="QQ" rule="qq" empty="请填写您的QQ号码" warn="您输入的QQ号码不存在" tips="请输入5位到9位的QQ号码" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Telephone">电话：</label>
+				</dt>
+				<dd>
+					<input id="Telephone" name="Telephone" type="text" value="13777777777" /><ui:v for="Telephone" rule="Custom" as="elements" expression="mobile || phone" empty="请填写您的手机号码" warn="您输入的手机号码不存在或格式不正确" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Photo">相片上传：</label>
+				</dt>
+				<dd>
+					<input id="Photo" name="Photo" type="file" style="height:20px;vertical-align:1px;_vertical-align:0" /><ui:v for="Photo" require="true" empty="不允许为空" rule="filter" tips="请选择jpg、gif或png格式的图片" warn="非法的文件格式" as="file" accept="jpg, gif, png" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="UserName">注册用户名：</label>
+				</dt>
+				<dd>
+					<input id="UserName" name="UserName" type="text" value="管理员" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Zip">邮政编码：</label>
+				</dt>
+				<dd>
+					<input id="Zip" name="Zip" value="524433" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Zip1">邮政编码：</label>
+				</dt>
+				<dd>
+					<input id="Zip1" name="Zip1" value="524433" rule="regex" pattern="^[1-9]\d{5}$" empty="请填写您的邮政编码" warn="您输入的邮政编码不存在或格式不正确" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="Test">整数小数：</label>
+				</dt>
+				<dd>
+					<input id="Test" name="Test" value="3.14" /><ui:v for="Test" rule="double" empty="请填写一个整数或小数" warn="您输入的不是整数或小数" pass="验证正确了" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					您的爱好：
+				</dt>
+				<dd>
+					<label><input type="checkbox" name="Fav" value="1" />足球</label>
+					<label><input type="checkbox" name="Fav" value="2" />篮球</label>
+					<label><input type="checkbox" name="Fav" value="3" />网球</label>
+					<label><input type="checkbox" name="Fav" value="4" />台球</label>
+					<ui:v for="Fav" rule="Group" min="2" pass="选择通过" tips="请选择至少两项" warn="您的选择不足两项" />
+				</dd>
+			</dl>
+			<dl style="height:75px">
+				<dt>
+					您的特长：
+				</dt>
+				<dd>
+					<select size="4" multiple="multiple" name="Good" id="Good">
+						<option value="1">足球</option>
+						<option value="2">篮球</option>
+						<option value="3">网球</option>
+						<option value="4">台球</option>
+					</select>
+					<ui:v for="Good" rule="Group" min="2" pass="选择通过" tips="请选择至少两项" warn="您的选择不足两项" />
+				</dd>
+			</dl>
+			<dl style="height:100px">
+				<dt>
+					您的IM：
+				</dt>
+				<dd>
+					<label>Q &nbsp;Q：<input type="text" id="imQQ" name="imQQ" value="" /></label><br />
+					<label>MSN：<input type="text" id="imMSN" name="imMSN" value="" /></label><br />
+					<label>U &nbsp;C：<input type="text" id="imUC" name="imUC" value="" /></label>
+					<ui:v for="imQQ" rule="Group" elements="imQQ, imMSN, imUC" min="2" pass="验证通过" tips="请至少填写一个IM" warn="您没有提供IM信息" />
+				</dd>
+			</dl>
+			<dl style="height:58px">
+				<dt>
+					<label for="message">留言:</label>
+				</dt>
+				<dd>
+					<textarea id="message" Name="message" rule="LimitB" min="3" max="5" empty="必须填写留言" pass="感谢留言" warn="只允许字数在3-5字内"></textarea>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					操作：
+				</dt>
+				<dd>
+					<input name="Submit" type="submit" value="确定提交" />
+				</dd>
+			</dl>
+		</fieldset>
+	</form>
+</body>
+</html>

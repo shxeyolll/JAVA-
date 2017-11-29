@@ -1,0 +1,149 @@
+body {
+	font: normal 12px Verdana;
+	color: #333333
+}
+
+h1 {
+	font: bold 14px Verdana;
+}
+legend {
+	font-weight: 700;color:black;
+}
+
+dl {
+	margin: 2px 0 0;
+	padding: 4px 0;
+	border-bottom: 1px solid #dedede;
+	height: 30px;
+	clear: both;
+}
+
+dt,dd {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	margin: 0;
+	padding: 0;
+}
+
+dt {
+	font-weight: 700;
+	width: 150px;
+	text-align: right;
+	background-color: #666;
+	color : #fff;
+	height:90%;
+}
+
+dd {
+	margin-left: 5px;
+}
+
+input,textarea,select,td {
+	font: normal 12px Verdana;
+	color: #333333;
+	border: 1px solid #999999;
+	background: #ffffff
+}
+
+input {
+	height: 18px !important;
+	height: 20px;
+	line-height: 18px !important;
+	line-height: 20px;
+}
+
+textarea {
+	width: 400px;
+	height: 50px;
+	overflow: auto;
+}
+
+form {
+	display: inline;
+}
+.tooltips {
+	position:absolute;
+	left:-500px;
+	top:-500px;
+	font:bold 12px Tahoma;
+	color:#666;
+	border-top: 1px solid #00B800; 
+	background: url(../img/tips_icon.gif) no-repeat bottom; 
+	margin: 0; 
+	padding: 5px 5px 15px; 
+	width: 290px;
+	_width:300px;
+}
+.summary {
+	margin-left: 3px;
+	font: 12px Tahoma;
+	color: #666;
+	border: 1px solid #0099cc;
+	background: #ddedfb;
+	display : none;
+}
+.summary .title {
+	font-weight: bold;
+	margin-left:8px;
+	padding:3px;
+}
+.summary ol{
+	margin-top:0;
+	margin-bottom:2px;
+}
+.style-warn {
+	background-color : yellow;
+}
+.style-pass {
+	background-color : blue;
+}
+.msg {
+	background: #fff url(../img/icons.gif) no-repeat -25px -75px;
+	border: 1px solid #fff;
+	display: inline;
+	margin-left: 5px;
+	padding: 2px 2px 2px 18px;
+	vertical-align : -1px;
+	*vertical-align : 5px;
+	_vertical-align : 3px;
+}
+
+.pass {
+	background-position: 1px -57px;
+	background-color: #E6FFE6;
+	border-color: #00BE00;
+}
+
+.error {
+	background-position: 1px -38px;
+	background-color: #FFF2E9;
+	border-color: #FF6600;
+}
+
+.tips {
+	background-position: 1px 2px;
+	background-color: #E2F5FF;
+	border-color: #00A8FF;
+}
+
+.loading {
+	background: #fff url(../img/loading.gif) no-repeat left center;
+	background-color: #E2F5FF;
+	border-color: #00A8FF;
+}
+
+.block {
+	background-position: 1px -18px;
+	background-color: #FFF2E9;
+	border-color: #FF6600;
+}
+.clearfix {
+	clear : both;
+}
+#passwordInfo {
+	*margin-left:5px;
+	width:220px;
+	height: 20px;
+	background: transparent url(../img/levels.gif) left top no-repeat;
+}
